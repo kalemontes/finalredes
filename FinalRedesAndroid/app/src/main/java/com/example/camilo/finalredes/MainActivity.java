@@ -6,12 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import java.util.Observable;
 import java.util.Observer;
 
 public class MainActivity extends AppCompatActivity implements Observer {
-    private Button bnPlay;
+    private ImageButton bnPlay;
     private Button bnQuit;
 
     @Override
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         setContentView(R.layout.activity_main);
         Comunicacion.getInstance().addObserver(this);
 
-        bnPlay = (Button) findViewById(R.id.bnPlay);
+        bnPlay = (ImageButton) findViewById(R.id.bnPlay);
         bnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

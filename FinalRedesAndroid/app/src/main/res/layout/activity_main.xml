@@ -12,14 +12,15 @@
         android:src="@drawable/escenario"
         android:scaleType="centerCrop" />
 
-    <Button
+    <ImageButton
         android:id="@+id/bnPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
-        android:text="PLAY"/>
+        android:src="@drawable/play"
+        android:background="@android:color/transparent"/>
 
     <Button
         android:id="@+id/bnQuit"
