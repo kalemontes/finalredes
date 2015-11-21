@@ -43,7 +43,7 @@ public class Comunicacion extends Observable implements Runnable {
 
     @Override
     public void run() {
-    	System.out.println("[ HILO DE COMUNICACIÓN INICIADO ]");
+    	System.out.println("[ HILO DE COMUNICACION INICIADO ]");
         while (corriendo) {
             try {
                 if (conectando) {
@@ -52,7 +52,7 @@ public class Comunicacion extends Observable implements Runnable {
                             try {
                                 s.close();
                             } catch (IOException e) {
-                            	System.out.println("[ SE RESETEÓ LA CONEXIÓN CON EL SERVIDOR ]");
+                            	System.out.println("[ SE RESETEA LA CONEXION CON EL SERVIDOR ]");
                                 //e.printStackTrace();
                             } finally {
                                 s = null;
@@ -71,7 +71,7 @@ public class Comunicacion extends Observable implements Runnable {
                 //Log.d(TAG, "[ SE PERDIÓ LA CONEXIÓN CON EL SERVIDOR ]");
                 //corriendo = false;
             } catch (IOException e) {
-            	System.out.println("[ SE PERDIÓ LA CONEXIÓN CON EL SERVIDOR ]");
+            	System.out.println("[ SE PERDIO LA CONEXION CON EL SERVIDOR ]");
                 //notifyObservers("no_conectado");
                 //clearChanged();
                 //corriendo = false;
@@ -79,7 +79,7 @@ public class Comunicacion extends Observable implements Runnable {
             } catch (InterruptedException e) {
                 // e.printStackTrace();
                 setChanged();
-                System.out.println("[ INTERRUPCIÓN ]");
+                System.out.println("[ INTERRUPCION ]");
             }
         }
 
@@ -108,7 +108,7 @@ public class Comunicacion extends Observable implements Runnable {
             return false;
         } catch (IOException e) {
             //e.printStackTrace();
-        	System.out.println("[ ERROR AL ESTABLECER LA CONEXIÓN ]");
+        	System.out.println("[ ERROR AL ESTABLECER LA CONEXION ]");
             if (!notificoError) {
                 setChanged();
                 notifyObservers("no_conectado");

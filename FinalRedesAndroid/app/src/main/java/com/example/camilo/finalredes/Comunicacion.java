@@ -20,7 +20,7 @@ public class Comunicacion extends Observable implements Runnable {
     private static Comunicacion ref;
     private Socket s;
     private boolean corriendo;
-    private String ip = "10.0.2.2";
+    private String ip = "192.168.0.23";
     private int puerto = 5000;
     private boolean conectando;
     private boolean reset;
@@ -127,9 +127,21 @@ public class Comunicacion extends Observable implements Runnable {
     private void recibir() throws IOException {
         DataInputStream dis = new DataInputStream(s.getInputStream());
         String recibido = dis.readUTF();
+
+        jugadorConectado(recibido);
         manejarLogin(recibido);
         manejarSignup(recibido);
         manejarMensaje(recibido);
+    }
+
+    private void jugadorConectado(String recibido) {
+        String[] instruccion_mensaje = recibido.split(":");
+        String instruccion = instruccion_mensaje[0];
+        if (instruccion.equalsIgnoreCase("JUGADOR")) {
+            String mensajeServidor = instruccion_mensaje[1];
+            notifyObservers(mensajeServidor);
+            clearChanged();
+        }
     }
 
     private void manejarMensaje(String recibido) {

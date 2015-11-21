@@ -39,18 +39,28 @@ public class Servidor extends Thread implements Observer {
 
 	@Override
 	public void update(Observable observado, Object mensajeString) {
-		String notificacion = (String) mensajeString;
-		if (notificacion.contains("login_req:")) {
+		String mensajeRecibidoClient = (String) mensajeString;
+		
+		String[] instruccion_mensaje = mensajeRecibidoClient.split(":");
+		String instruccion = instruccion_mensaje[0];
+		
+		if(instruccion.equalsIgnoreCase("JUGADOR")) {
+			String nombre = instruccion_mensaje[1];
+			//TODO: prepare la pantalla del servidor
+			((ControlCliente)observado).enviarMensaje("JUGADOR:OK_ERES_EMPOLLADOR");
+		}
+		
+		if (mensajeRecibidoClient.contains("login_req:")) {
 			((ControlCliente)observado).enviarMensaje("Intento de login");
 		}
-		else if (notificacion.contains("signup_req:")) {
+		else if (mensajeRecibidoClient.contains("signup_req:")) {
 			((ControlCliente)observado).enviarMensaje("Intento de signup");		
 		}
-		else if (notificacion.contains("cliente_no_disponible")) {
+		else if (mensajeRecibidoClient.contains("cliente_no_disponible")) {
 			clientes.remove(observado);
 			System.out.println("[ SE HA IDO UN CLIENTE, QUEDAN: " + clientes.size()+ " ]");
 		}
-		else if (notificacion.contains("mensaje_send:")) {
+		else if (mensajeRecibidoClient.contains("mensaje_send:")) {
 			((ControlCliente)observado).enviarMensaje("Intento de mensaje_send");
 			//System.out.println("[ SE HA IDO UN CLIENTE, QUEDAN: " + clientes.size()+ " ]");
 		}

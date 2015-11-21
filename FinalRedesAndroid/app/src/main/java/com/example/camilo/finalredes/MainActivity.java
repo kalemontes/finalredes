@@ -25,8 +25,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         bnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentFullScreen = new Intent(getApplicationContext(), FullscreenActivity.class);
-                startActivity(intentFullScreen);
+                Comunicacion.getInstance().enviar("JUGADOR:Empollador");
             }
         });
 
@@ -41,6 +40,16 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
     @Override
     public void update(Observable observable, Object data) {
-        Log.i("MainActivity", data.toString());
+        String respuestaServidor = (String) data;
+        Log.i("MainActivity", respuestaServidor);
+
+        switch (respuestaServidor) {
+            case "OK_ERES_EMPOLLADOR":
+                Intent intentFullScreen = new Intent(getApplicationContext(), FullscreenActivity.class);
+                startActivity(intentFullScreen);
+                break;
+            default:
+                break;
+        }
     }
 }
