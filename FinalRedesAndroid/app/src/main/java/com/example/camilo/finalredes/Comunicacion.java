@@ -139,6 +139,8 @@ public class Comunicacion extends Observable implements Runnable {
         String instruccion = instruccion_mensaje[0];
         if (instruccion.equalsIgnoreCase("JUGADOR")) {
             String mensajeServidor = instruccion_mensaje[1];
+
+            setChanged();
             notifyObservers(mensajeServidor);
             clearChanged();
         }
