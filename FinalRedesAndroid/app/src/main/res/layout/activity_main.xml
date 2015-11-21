@@ -22,6 +22,26 @@
         android:src="@drawable/play"
         android:background="@android:color/transparent"/>
 
+    <ImageButton
+        android:id="@+id/bnPlay2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="375dp"
+        android:layout_marginLeft="65dp"
+        android:src="@drawable/play2"
+        android:background="@android:color/transparent"/>
+
+    <ImageButton
+        android:id="@+id/bnPlay3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="375dp"
+        android:layout_marginLeft="257dp"
+        android:src="@drawable/play3"
+        android:background="@android:color/transparent"/>
+
     <Button
         android:id="@+id/bnQuit"
         android:layout_width="wrap_content"

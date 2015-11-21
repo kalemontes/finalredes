@@ -12,7 +12,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class MainActivity extends AppCompatActivity implements Observer {
-    private ImageButton bnPlay;
+    private ImageButton bnPlay,bnPlay2,bnPlay3;
     private Button bnQuit;
 
     @Override
