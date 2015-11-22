@@ -60,6 +60,10 @@ public class MainAppServer extends PApplet{
 				pajaro.display();
 				pajaro.move();
 				
+				for(Cerdo cerdo : cerdosEnElLienzo) {
+					pajaro.mataCerdo(cerdo);
+				}
+				
 				if (pajaro.mustDisapear()) {
 					pajarosARetirarDelLienzo.add(pajaro);
 				}
@@ -71,6 +75,10 @@ public class MainAppServer extends PApplet{
 			for(Cerdo cerdo : cerdosEnElLienzo) {
 				cerdo.display();
 				cerdo.move();
+				
+				for(Huevo huevo : huevosEnElLienzo) {
+					cerdo.comerHuevo(huevo);
+				}
 				
 				if (cerdo.mustDisapear()) {
 					cerdosARetirarDelLienzo.add(cerdo);

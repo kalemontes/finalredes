@@ -7,7 +7,7 @@ public class Cerdo extends DrawableMovable {
 	
 	public Cerdo(PApplet p, PImage i, int initX, int initY) {
 		super(p, i, initX, initY, p.random(10));
-	    minX = 200;
+	    minX = 50;
 	}
 
 	@Override
@@ -16,6 +16,13 @@ public class Cerdo extends DrawableMovable {
 			x -= speed;
 		} else {
 			dissapears = true;
+		}
+		calculateCenter();
+	}
+	
+	public void comerHuevo(Huevo huevo){
+		if(this.closeEnoughFrom(huevo)) {
+			huevo.setMustDisapear(true);
 		}
 	}
 }

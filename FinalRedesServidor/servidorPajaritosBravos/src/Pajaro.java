@@ -39,5 +39,12 @@ public class Pajaro extends DrawableMovable {
 		  else {
 			  dissapears = true;
 		  }
+		  calculateCenter();
 	  }
+
+	public void mataCerdo(Cerdo cerdo) {
+		if(this.closeEnoughFrom(cerdo)) {
+			cerdo.setMustDisapear(true);
+		}
+	}
 }
