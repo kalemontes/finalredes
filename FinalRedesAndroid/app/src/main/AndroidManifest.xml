@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.camilo.finalredes">
+    package="com.example.daniel.finalredes">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -20,13 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".FullscreenActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_fullscreen"></activity>
-
-        <activity
-            android:name=".Instrucciones"></activity>
+        <activity android:name=".InstruccionesActivity"/>
+        <activity android:name=".InteraccionCerdokillerActivity"/>
+        <activity android:name=".InteraccionEmpolladorActivity"/>
+        <activity android:name=".InteraccionMonjaActivity"/>
     </application>
 
 </manifest>
