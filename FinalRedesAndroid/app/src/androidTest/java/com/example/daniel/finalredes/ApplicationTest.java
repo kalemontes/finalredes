@@ -1,4 +1,4 @@
-package com.example.camilo.finalredes;
+package com.example.daniel.finalredes;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

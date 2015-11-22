@@ -1,16 +1,18 @@
-package com.example.camilo.finalredes;
+package com.example.daniel.finalredes;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * Created by Daniel on 22/11/2015.
+ */
 public class MainActivity extends AppCompatActivity implements Observer {
     private ImageButton bnPlay,bnPlay2,bnPlay3;
     private ImageButton salir;
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
         switch (respuestaServidor) {
             case "EMPOLLADOR":
-                Intent intentInstrucciones = new Intent(getApplicationContext(), Instrucciones.class);
+                Intent intentInstrucciones = new Intent(getApplicationContext(), InstruccionesActivity.class);
                 intentInstrucciones.putExtra("JUGADOR","ROL_JUGADOR:EMPOLLADOR");
                 startActivity(intentInstrucciones);
                 break;
