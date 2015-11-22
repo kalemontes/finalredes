@@ -10,7 +10,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
@@ -20,13 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".FullscreenActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_fullscreen"></activity>
-
-        <activity
-            android:name=".Instrucciones"></activity>
+        <activity android:name=".InstruccionesActivity" />
+        <activity android:name=".InteraccionCerdokillerActivity" />
+        <activity android:name=".InteraccionEmpolladorActivity" />
+        <activity android:name=".InteraccionMonjaActivity"></activity>
     </application>
 
 </manifest>
