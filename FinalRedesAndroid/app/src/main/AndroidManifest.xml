@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.camilo.finalredes">
+    package="com.example.daniel.finalredes">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.daniel.finalredes.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,10 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InstruccionesActivity" />
-        <activity android:name=".InteraccionCerdokillerActivity" />
-        <activity android:name=".InteraccionEmpolladorActivity" />
-        <activity android:name=".InteraccionMonjaActivity"></activity>
+        <activity android:name="com.example.daniel.finalredes.InstruccionesActivity" />
+        <activity android:name="com.example.daniel.finalredes.InteraccionCerdokillerActivity" />
+        <activity android:name="com.example.daniel.finalredes.InteraccionEmpolladorActivity" />
+        <activity android:name="com.example.daniel.finalredes.InteraccionMonjaActivity"></activity>
     </application>
 
 </manifest>
