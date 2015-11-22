@@ -25,4 +25,8 @@ public abstract class Drawable {
 	public boolean mustDisapear() {
 		return dissapears;
 	}
+	
+	public void setMusDisapear(boolean d) {
+		dissapears = d;
+	}
 }

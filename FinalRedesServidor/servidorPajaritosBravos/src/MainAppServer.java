@@ -33,6 +33,8 @@ public class MainAppServer extends PApplet{
 		cerdo3 = loadImage("../data/cerdo3.png");
 		huevo = loadImage("../data/huevo.png");
 		juegoIniciado = false;
+		
+		iniciarJuego();
 	}
 	
 	@Override
@@ -84,5 +86,9 @@ public class MainAppServer extends PApplet{
 		agregarAlLienzo(new CerdoConejo(this, 1000, 500));
 		agregarAlLienzo(new CerdoSoldado(this, 400, 500));
 		agregarAlLienzo(new CerdoNormal(this, 500, 500));
+		
+		agregarAlLienzo(new Huevo(this, 100, 500));
+		agregarAlLienzo(new Huevo(this, 300, 500));
+		agregarAlLienzo(new Huevo(this, 360, 363));
 	}
 }
