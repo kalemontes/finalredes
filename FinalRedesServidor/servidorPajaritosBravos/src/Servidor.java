@@ -20,6 +20,11 @@ public class Servidor extends Thread implements Observer {
 			e.printStackTrace();
 		}
 	}
+	
+
+	public int clientesConectados() {
+		return clientes.size();
+	}
 
 	@Override
 	public void run() {
@@ -54,13 +59,13 @@ public class Servidor extends Thread implements Observer {
 			System.out.println("Bienvenido jugador : "+nombre); //TODO: esto lo tenemos que presentar en el televisor
 			
 			if(nombre.equalsIgnoreCase("JUGADOR_1")) {
-				PajaroRojo p1 = new PajaroRojo(applet, applet.rojo, 10, 500);
+				PajaroRojo p1 = new PajaroRojo(applet, 10, 500);
 				applet.agregarAlLienzo(p1);
 				
 				((ControlCliente)observado).enviarMensaje("ROL_JUGADOR:EMPOLLADOR");
 			} 
 			else if(nombre.equalsIgnoreCase("JUGADOR_2")) {
-				PajaroRojo p1 = new PajaroRojo(applet, applet.azul, 10, 300);
+				PajaroRojo p1 = new PajaroRojo(applet, 10, 300);
 				applet.agregarAlLienzo(p1);
 				
 				((ControlCliente)observado).enviarMensaje("ROL_JUGADOR:CERDOKILLER");
@@ -109,4 +114,5 @@ public class Servidor extends Thread implements Observer {
 			}
 		}
 	}
+
 }
