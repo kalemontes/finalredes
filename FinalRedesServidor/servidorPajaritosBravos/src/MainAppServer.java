@@ -37,7 +37,7 @@ public class MainAppServer extends PApplet{
 		huevo = loadImage("../data/huevo.png");
 		juegoIniciado = false;
 		
-		iniciarJuego();
+		//--> esto es llamado cuando los 3 utilisadores estan conectados : iniciarJuego();
 	}
 	
 	@Override
@@ -111,11 +111,17 @@ public class MainAppServer extends PApplet{
 		
 		//Agregamos los cerdos 
 		agregarAlLienzo(new CerdoConejo(this, 1000, 500));
-		agregarAlLienzo(new CerdoSoldado(this, 400, 500));
+		agregarAlLienzo(new CerdoSoldado(this, 480, 500));
 		agregarAlLienzo(new CerdoNormal(this, 500, 500));
 		
+		//Agregamos los huevos
 		agregarAlLienzo(new Huevo(this, 100, 500));
 		agregarAlLienzo(new Huevo(this, 300, 500));
 		agregarAlLienzo(new Huevo(this, 360, 363));
+		
+		agregarAlLienzo(new PajaroRojo(this, 10, 500));
+		agregarAlLienzo(new PajaroAmarillo(this, 10, 500));
+		agregarAlLienzo(new PajaroAzul(this, 10, 500));
+//		agregarAlLienzo(new CerdoNormal(this, 720, 400));
 	}
 }
