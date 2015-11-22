@@ -3,6 +3,11 @@ import processing.core.PImage;
 
 public abstract class Drawable {
 	
+	float xCenter;
+	float yCenter;
+	int width;
+	int height;
+	
 	float x; // posicion horizontal
 	float y; // posicion vertical
 	PApplet parent; // The parent PApplet that we will render ourselves onto
@@ -16,6 +21,14 @@ public abstract class Drawable {
 	    y = initY;
 	    img = i;
 	    dissapears = false;
+	    width = i.width;
+	    height = i.height;
+	    calculateCenter();
+	}
+	
+	public void calculateCenter() {
+	    xCenter = x + width/2;
+	    yCenter = y + height/2;
 	}
 	
 	public void display() {
@@ -26,7 +39,7 @@ public abstract class Drawable {
 		return dissapears;
 	}
 	
-	public void setMusDisapear(boolean d) {
+	public void setMustDisapear(boolean d) {
 		dissapears = d;
 	}
 }
