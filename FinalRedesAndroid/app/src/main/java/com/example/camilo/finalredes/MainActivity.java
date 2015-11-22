@@ -25,7 +25,16 @@ public class MainActivity extends AppCompatActivity implements Observer {
         bnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Comunicacion.getInstance().enviar("JUGADOR:Empollador");
+//                Comunicacion.getInstance().enviar("JUGADOR:Empollador");
+                Comunicacion.getInstance().enviar("CONEXION_JUGADOR:JUGADOR_1:");
+            }
+        });
+
+        bnPlay2 = (ImageButton) findViewById(R.id.bnPlay2);
+        bnPlay2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Comunicacion.getInstance().enviar("CONEXION_JUGADOR:JUGADOR_2:");
             }
         });
 
