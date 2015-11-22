@@ -9,10 +9,13 @@ public class Servidor extends Thread implements Observer {
 	private MainAppServer applet;
 	private ServerSocket ss;
 	private ArrayList<ControlCliente> clientes;
+	private EstadoJuego estadoJuego;
 
 	public Servidor(MainAppServer app) {
 		applet = app;
 		clientes = new ArrayList<ControlCliente>();
+		estadoJuego = new EstadoJuego(applet);
+		
 		try {
 			ss = new ServerSocket(5000);
 			System.out.println("[ SERVIDOR INICIADO EN: "+ss.toString()+" ]");
@@ -21,6 +24,10 @@ public class Servidor extends Thread implements Observer {
 		}
 	}
 
+	public EstadoJuego getEstadoJuego() {
+		return estadoJuego;
+	}
+	
 	public int clientesConectados() {
 		return clientes.size();
 	}
@@ -108,6 +115,13 @@ public class Servidor extends Thread implements Observer {
 					//if
 					((ControlCliente)observado).enviarMensaje("ACCION_MONJA:HUEVO_RESCATADO");
 				}
+			}
+			
+			if(accion.equalsIgnoreCase("GUARDAR_JUEGO")) {
+				estadoJuego.guardar();
+			}
+			else if(accion.equalsIgnoreCase("RECARGAR_JUEGO")) {
+				estadoJuego.chargar();
 			}
 		}
 	}
