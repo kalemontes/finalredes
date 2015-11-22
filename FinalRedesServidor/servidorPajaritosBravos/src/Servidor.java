@@ -4,15 +4,13 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import processing.core.PApplet;
-
 public class Servidor extends Thread implements Observer {
 
-	private PApplet applet;
+	private MainAppServer applet;
 	private ServerSocket ss;
 	private ArrayList<ControlCliente> clientes;
 
-	public Servidor(PApplet app) {
+	public Servidor(MainAppServer app) {
 		applet = app;
 		clientes = new ArrayList<ControlCliente>();
 		try {
@@ -56,9 +54,15 @@ public class Servidor extends Thread implements Observer {
 			System.out.println("Bienvenido jugador : "+nombre); //TODO: esto lo tenemos que presentar en el televisor
 			
 			if(nombre.equalsIgnoreCase("JUGADOR_1")) {
+				PajaroRojo p1 = new PajaroRojo(applet, applet.loadImage("../libs/rojo.png"), 10, 500);
+				applet.agregarAlLienzo(p1);
+				
 				((ControlCliente)observado).enviarMensaje("ROL_JUGADOR:EMPOLLADOR");
 			} 
 			else if(nombre.equalsIgnoreCase("JUGADOR_2")) {
+				PajaroRojo p1 = new PajaroRojo(applet, applet.loadImage("../libs/rojo.png"), 10, 300);
+				applet.agregarAlLienzo(p1);
+				
 				((ControlCliente)observado).enviarMensaje("ROL_JUGADOR:CERDOKILLER");
 			}
 			else if(nombre.equalsIgnoreCase("JUGADOR_3")) {
