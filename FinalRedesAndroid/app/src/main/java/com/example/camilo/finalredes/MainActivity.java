@@ -53,9 +53,10 @@ public class MainActivity extends AppCompatActivity implements Observer {
         Log.i("MainActivity", respuestaServidor);
 
         switch (respuestaServidor) {
-            case "OK_ERES_EMPOLLADOR":
-                Intent intentFullScreen = new Intent(getApplicationContext(), FullscreenActivity.class);
-                startActivity(intentFullScreen);
+            case "EMPOLLADOR":
+                Intent intentInstrucciones = new Intent(getApplicationContext(), Instrucciones.class);
+                intentInstrucciones.putExtra("JUGADOR","ROL_JUGADOR:EMPOLLADOR");
+                startActivity(intentInstrucciones);
                 break;
             default:
                 break;
