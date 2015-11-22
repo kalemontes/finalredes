@@ -1,16 +1,19 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 
+import processing.core.PApplet;
+
 public class Servidor extends Thread implements Observer {
 
+	private PApplet applet;
 	private ServerSocket ss;
 	private ArrayList<ControlCliente> clientes;
 
-	public Servidor() {
+	public Servidor(PApplet app) {
+		applet = app;
 		clientes = new ArrayList<ControlCliente>();
 		try {
 			ss = new ServerSocket(5000);
@@ -39,30 +42,67 @@ public class Servidor extends Thread implements Observer {
 
 	@Override
 	public void update(Observable observado, Object mensajeString) {
+		
+		//Cuando recibo un mensaje de cualquiera
 		String mensajeRecibidoClient = (String) mensajeString;
 		
+		//Necesito extraer el contido del mensaje que est del estilo siguiente "INSTRUCCION:MENSAGE:OTROS_PARAMETROS"
 		String[] instruccion_mensaje = mensajeRecibidoClient.split(":");
 		String instruccion = instruccion_mensaje[0];
 		
-		if(instruccion.equalsIgnoreCase("JUGADOR")) {
-			String nombre = instruccion_mensaje[1];
-			//TODO: prepare la pantalla del servidor
-			((ControlCliente)observado).enviarMensaje("JUGADOR:OK_ERES_EMPOLLADOR");
+		//"CONEXION_JUGADOR:jugardo1:"
+		if(instruccion.equalsIgnoreCase("CONEXION_JUGADOR")) {
+			String nombre = instruccion_mensaje[1]; //por ejemplo jugardo1
+			System.out.println("Bienvenido jugador : "+nombre); //TODO: esto lo tenemos que presentar en el televisor
+			
+			if(nombre.equalsIgnoreCase("JUGADOR_1")) {
+				((ControlCliente)observado).enviarMensaje("ROL_JUGADOR:EMPOLLADOR");
+			} 
+			else if(nombre.equalsIgnoreCase("JUGADOR_2")) {
+				((ControlCliente)observado).enviarMensaje("ROL_JUGADOR:CERDOKILLER");
+			}
+			else if(nombre.equalsIgnoreCase("JUGADOR_3")) {
+				((ControlCliente)observado).enviarMensaje("ROL_JUGADOR:MONJA");
+			}
+			
+			if(clientes.size() >= 3) { //FIXME deberiamos guardar refencia de que cada typo de jugar realmente se conecto
+				//TODO: presentar el escenario en la pantalla del televisor
+				for(ControlCliente cliente : clientes) {
+					cliente.enviarMensaje("INICIO_AUTORIZADO:LISTO_PAPA!!");
+				}
+			}
 		}
-		
-		if (mensajeRecibidoClient.contains("login_req:")) {
-			((ControlCliente)observado).enviarMensaje("Intento de login");
-		}
-		else if (mensajeRecibidoClient.contains("signup_req:")) {
-			((ControlCliente)observado).enviarMensaje("Intento de signup");		
-		}
-		else if (mensajeRecibidoClient.contains("cliente_no_disponible")) {
-			clientes.remove(observado);
-			System.out.println("[ SE HA IDO UN CLIENTE, QUEDAN: " + clientes.size()+ " ]");
-		}
-		else if (mensajeRecibidoClient.contains("mensaje_send:")) {
-			((ControlCliente)observado).enviarMensaje("Intento de mensaje_send");
-			//System.out.println("[ SE HA IDO UN CLIENTE, QUEDAN: " + clientes.size()+ " ]");
+		//"ACCION_JUGADOR:CERDOKILLER:LANZAR_AZUL"
+		else if(instruccion.equalsIgnoreCase("ACCION_JUGADOR")) {
+			String rolJugador = instruccion_mensaje[1];
+			String accion = instruccion_mensaje[2]; //por ejemplo empezar a empollar o lanzar pajarito azul
+			
+			if(rolJugador.equalsIgnoreCase("EMPOLLADOR")) {
+				if(accion.equalsIgnoreCase("RECIBIR_HUEVO")) {
+					
+				}
+				else if(accion.equalsIgnoreCase("DESMPOLLAR")) {
+					
+				}
+			}
+			else if(rolJugador.equalsIgnoreCase("CERDOKILLER")) {
+				if(accion.equalsIgnoreCase("LANZAR_AZUL")) {
+					
+				}
+				else if(accion.equalsIgnoreCase("LANZAR_AMARILLO")) {
+					
+				}
+				else if(accion.equalsIgnoreCase("LANZAR_ROJO")) {
+					
+				}
+			}
+			else if(rolJugador.equalsIgnoreCase("MONJA")) {
+				if(accion.equalsIgnoreCase("RESCATAR")) {
+					
+					//if
+					((ControlCliente)observado).enviarMensaje("ACCION_MONJA:HUEVO_RESCATADO");
+				}
+			}
 		}
 	}
 }

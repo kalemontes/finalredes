@@ -1,7 +1,14 @@
+import processing.core.PApplet;
 
-public class MainAppServer {
-	public static void main(String[] args){
-		Servidor server = new Servidor();
+
+public class MainAppServer extends PApplet{	
+	Servidor server;	
+	@Override
+	public void setup() {		
+		server = new Servidor(this);
 		server.start();
+		
+		size(1080,720);
+	    background(0);
 	}
 }
