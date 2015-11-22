@@ -7,8 +7,12 @@ public class MainAppServer extends PApplet{
 	Servidor server;
 	
 	public PImage escenario, nido, rojo, azul, amarillo, cauchera, cerdo, cerdo2, cerdo3, huevo; 
-	ArrayList<DrawableMovable> objetosEnElLienzo = new ArrayList<>();
-	ArrayList<DrawableMovable> objetosARetirar = new ArrayList<>();
+	
+	ArrayList<DrawableMovable> objetosMoviblesEnElLienzo = new ArrayList<>();
+	ArrayList<DrawableMovable> objetosMoviblesARetirar = new ArrayList<>();
+	
+	ArrayList<Drawable> objetosFijosEnElLienzo = new ArrayList<>();
+	ArrayList<Drawable> objetosFijosARetirar = new ArrayList<>();
 	
 	int largoLienzo = 1080;
 	int alturaLienzo = 720;
@@ -38,17 +42,26 @@ public class MainAppServer extends PApplet{
 		if(juegoIniciado) {
 			image(escenario,0,0);
 			
-			for(DrawableMovable drawable : objetosEnElLienzo) {
+			for(Drawable fijo : objetosFijosEnElLienzo) {
+				fijo.display();
+				if (fijo.mustDisapear()) {
+					objetosFijosARetirar.add(fijo);
+				}
+			}
+			objetosFijosEnElLienzo.removeAll(objetosFijosARetirar);
+			objetosFijosARetirar.clear();
+			
+			for(DrawableMovable drawable : objetosMoviblesEnElLienzo) {
 				drawable.display();
 				drawable.move();
 				
-				if (drawable.isMoveEnd()) {
-					objetosARetirar.add(drawable);
+				if (drawable.mustDisapear()) {
+					objetosMoviblesARetirar.add(drawable);
 				}
 			}
 			
-			objetosEnElLienzo.removeAll(objetosARetirar);
-			objetosARetirar.clear();
+			objetosMoviblesEnElLienzo.removeAll(objetosMoviblesARetirar);
+			objetosMoviblesARetirar.clear();
 		}
 		else {
 			textAlign(CENTER);
@@ -57,7 +70,11 @@ public class MainAppServer extends PApplet{
 	}
 	
 	public void agregarAlLienzo(DrawableMovable objeto) {
-		objetosEnElLienzo.add(objeto);
+		objetosMoviblesEnElLienzo.add(objeto);
+	}
+	
+	public void agregarAlLienzo(Drawable objeto) {
+		objetosFijosEnElLienzo.add(objeto);
 	}
 	
 	public void iniciarJuego() {

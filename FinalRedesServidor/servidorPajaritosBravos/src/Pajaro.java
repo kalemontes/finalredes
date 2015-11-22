@@ -1,36 +1,20 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Pajaro implements DrawableMovable {
-	  float x;       // posicion horizontal
-	  float y;       // posicion vertical
-	  float speed;   // velocidad
-	  PApplet parent; // The parent PApplet that we will render ourselves onto
-	  PImage img;
-	  
+public class Pajaro extends DrawableMovable {
+	
 	  int maxX; //el punto mas lejos donde le pajaro puede llegar
 	  int maxY; //el punto mas alto que el pajaro puede alcanzar
 	  int minY; //el suelo
-	  
-	  boolean moveEnd; //con esto sabemos cuando el pajaro toco el suelo
 	  boolean upEnd; //con esto sabemos cuando el pajaro llego al punto mas alto para poderlo hacer bajar
 
 	  public Pajaro(PApplet p, PImage i, int initX, int initY) {
-	    parent = p;
-	    x = initX;
-	    y = initY;
-	    speed = parent.random(10);
-	    img = i;
+		super(p, i, initX, initY, p.random(10));
+	    
 	    maxX = 800;
 	    maxY = 100;
 	    minY = 500;
-	    moveEnd = false;
 	    upEnd = false;
-	  }
-
-	  // Draw stripe
-	  public void display() {
-		  parent.image(img, x, y);
 	  }
 
 	  // Move stripe
@@ -38,7 +22,7 @@ public class Pajaro implements DrawableMovable {
 		  if(upEnd) {
 			  y += speed;
 			  if(y > minY) {
-				  moveEnd = true;
+				  dissapears = true;
 			  }
 		  } else {
 			  if(y > maxY) {
@@ -53,11 +37,7 @@ public class Pajaro implements DrawableMovable {
 			  x += speed;
 		  }
 		  else {
-			  moveEnd = true;
+			  dissapears = true;
 		  }
 	  }
-
-	public boolean isMoveEnd() {
-		return moveEnd;
-	}
 }
