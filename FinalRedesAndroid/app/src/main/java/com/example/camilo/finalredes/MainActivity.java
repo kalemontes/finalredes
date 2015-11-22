@@ -13,7 +13,7 @@ import java.util.Observer;
 
 public class MainActivity extends AppCompatActivity implements Observer {
     private ImageButton bnPlay,bnPlay2,bnPlay3;
-    private Button bnQuit;
+    private ImageButton salir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
             }
         });
 
-        bnQuit = (Button) findViewById(R.id.bnQuit);
-        bnQuit.setOnClickListener(new View.OnClickListener() {
+        salir = (ImageButton) findViewById(R.id.salir);
+        salir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
