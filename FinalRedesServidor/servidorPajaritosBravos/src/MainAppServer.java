@@ -8,11 +8,14 @@ public class MainAppServer extends PApplet{
 	
 	public PImage escenario, nido, rojo, azul, amarillo, cauchera, cerdo, cerdo2, cerdo3, huevo; 
 	
-	ArrayList<DrawableMovable> objetosMoviblesEnElLienzo = new ArrayList<>();
-	ArrayList<DrawableMovable> objetosMoviblesARetirar = new ArrayList<>();
+	ArrayList<Pajaro> pajarosEnElLienzo = new ArrayList<>();
+	ArrayList<DrawableMovable> pajarosARetirarDelLienzo = new ArrayList<>();
 	
-	ArrayList<Drawable> objetosFijosEnElLienzo = new ArrayList<>();
-	ArrayList<Drawable> objetosFijosARetirar = new ArrayList<>();
+	ArrayList<Cerdo> cerdosEnElLienzo = new ArrayList<>();
+	ArrayList<Cerdo> cerdosARetirarDelLienzo = new ArrayList<>();
+	
+	ArrayList<Huevo> huevosEnElLienzo = new ArrayList<>();
+	ArrayList<Huevo> huevosARetirarDelLienzo = new ArrayList<>();
 	
 	int largoLienzo = 1080;
 	int alturaLienzo = 720;
@@ -44,26 +47,38 @@ public class MainAppServer extends PApplet{
 		if(juegoIniciado) {
 			image(escenario,0,0);
 			
-			for(Drawable fijo : objetosFijosEnElLienzo) {
-				fijo.display();
-				if (fijo.mustDisapear()) {
-					objetosFijosARetirar.add(fijo);
+			for(Huevo huevo : huevosEnElLienzo) {
+				huevo.display();
+				if (huevo.mustDisapear()) {
+					huevosARetirarDelLienzo.add(huevo);
 				}
 			}
-			objetosFijosEnElLienzo.removeAll(objetosFijosARetirar);
-			objetosFijosARetirar.clear();
+			huevosEnElLienzo.removeAll(huevosARetirarDelLienzo);
+			huevosARetirarDelLienzo.clear();
 			
-			for(DrawableMovable drawable : objetosMoviblesEnElLienzo) {
-				drawable.display();
-				drawable.move();
+			for(Pajaro pajaro : pajarosEnElLienzo) {
+				pajaro.display();
+				pajaro.move();
 				
-				if (drawable.mustDisapear()) {
-					objetosMoviblesARetirar.add(drawable);
+				if (pajaro.mustDisapear()) {
+					pajarosARetirarDelLienzo.add(pajaro);
 				}
 			}
 			
-			objetosMoviblesEnElLienzo.removeAll(objetosMoviblesARetirar);
-			objetosMoviblesARetirar.clear();
+			pajarosEnElLienzo.removeAll(pajarosARetirarDelLienzo);
+			pajarosARetirarDelLienzo.clear();
+			
+			for(Cerdo cerdo : cerdosEnElLienzo) {
+				cerdo.display();
+				cerdo.move();
+				
+				if (cerdo.mustDisapear()) {
+					cerdosARetirarDelLienzo.add(cerdo);
+				}
+			}
+			
+			cerdosEnElLienzo.removeAll(cerdosARetirarDelLienzo);
+			cerdosARetirarDelLienzo.clear();
 		}
 		else {
 			textAlign(CENTER);
@@ -71,12 +86,16 @@ public class MainAppServer extends PApplet{
 		}
 	}
 	
-	public void agregarAlLienzo(DrawableMovable objeto) {
-		objetosMoviblesEnElLienzo.add(objeto);
+	public void agregarAlLienzo(Pajaro objeto) {
+		pajarosEnElLienzo.add(objeto);
 	}
 	
-	public void agregarAlLienzo(Drawable objeto) {
-		objetosFijosEnElLienzo.add(objeto);
+	public void agregarAlLienzo(Cerdo objeto) {
+		cerdosEnElLienzo.add(objeto);
+	}
+	
+	public void agregarAlLienzo(Huevo objeto) {
+		huevosEnElLienzo.add(objeto);
 	}
 	
 	public void iniciarJuego() {
