@@ -58,15 +58,9 @@ public class Servidor extends Thread implements Observer {
 			System.out.println("Bienvenido jugador : "+nombre); //TODO: esto lo tenemos que presentar en el televisor
 			
 			if(nombre.equalsIgnoreCase("JUGADOR_1")) {
-				PajaroRojo p1 = new PajaroRojo(applet, applet.rojo, 10, 500);
-				applet.agregarAlLienzo(p1);
-				
 				((ControlCliente)observado).enviarMensaje("ROL_JUGADOR:EMPOLLADOR");
 			} 
 			else if(nombre.equalsIgnoreCase("JUGADOR_2")) {
-				PajaroRojo p1 = new PajaroRojo(applet, applet.azul, 10, 300);
-				applet.agregarAlLienzo(p1);
-				
 				((ControlCliente)observado).enviarMensaje("ROL_JUGADOR:CERDOKILLER");
 			}
 			else if(nombre.equalsIgnoreCase("JUGADOR_3")) {
@@ -96,13 +90,16 @@ public class Servidor extends Thread implements Observer {
 			}
 			else if(rolJugador.equalsIgnoreCase("CERDOKILLER")) {
 				if(accion.equalsIgnoreCase("LANZAR_AZUL")) {
-					
+					PajaroAzul p1 = new PajaroAzul(applet, 10, 300);
+					applet.agregarAlLienzo(p1);
 				}
 				else if(accion.equalsIgnoreCase("LANZAR_AMARILLO")) {
-					
+					PajaroAmarillo p1 = new PajaroAmarillo(applet, 10, 300);
+					applet.agregarAlLienzo(p1);
 				}
 				else if(accion.equalsIgnoreCase("LANZAR_ROJO")) {
-					
+					PajaroRojo p1 = new PajaroRojo(applet, 10, 500);
+					applet.agregarAlLienzo(p1);
 				}
 			}
 			else if(rolJugador.equalsIgnoreCase("MONJA")) {
