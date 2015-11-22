@@ -21,6 +21,10 @@ public class Servidor extends Thread implements Observer {
 		}
 	}
 
+	public int clientesConectados() {
+		return clientes.size();
+	}
+
 	@Override
 	public void run() {
 		while (true) {
@@ -48,7 +52,7 @@ public class Servidor extends Thread implements Observer {
 		String[] instruccion_mensaje = mensajeRecibidoClient.split(":");
 		String instruccion = instruccion_mensaje[0];
 		
-		//"CONEXION_JUGADOR:jugardo1:"
+		//"CONEXION_JUGADOR:JUGADOR_1:"
 		if(instruccion.equalsIgnoreCase("CONEXION_JUGADOR")) {
 			String nombre = instruccion_mensaje[1]; //por ejemplo jugardo1
 			System.out.println("Bienvenido jugador : "+nombre); //TODO: esto lo tenemos que presentar en el televisor
@@ -71,6 +75,7 @@ public class Servidor extends Thread implements Observer {
 			
 			if(clientes.size() >= 3) { //FIXME deberiamos guardar refencia de que cada typo de jugar realmente se conecto
 				//TODO: presentar el escenario en la pantalla del televisor
+				applet.iniciarJuego();
 				for(ControlCliente cliente : clientes) {
 					cliente.enviarMensaje("INICIO_AUTORIZADO:LISTO_PAPA!!");
 				}
