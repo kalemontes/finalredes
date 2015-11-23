@@ -40,6 +40,14 @@ public class MainActivity extends AppCompatActivity implements Observer {
             }
         });
 
+        bnPlay3 = (ImageButton) findViewById(R.id.bnPlay3);
+        bnPlay3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Comunicacion.getInstance().enviar("CONEXION_JUGADOR:JUGADOR_3:");
+            }
+        });
+
         salir = (ImageButton) findViewById(R.id.salir);
         salir.setOnClickListener(new View.OnClickListener() {
             @Override
