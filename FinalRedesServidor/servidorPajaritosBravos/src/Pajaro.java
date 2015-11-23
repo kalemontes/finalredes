@@ -7,6 +7,7 @@ public class Pajaro extends DrawableMovable {
 	  int maxY; //el punto mas alto que el pajaro puede alcanzar
 	  int minY; //el suelo
 	  boolean upEnd; //con esto sabemos cuando el pajaro llego al punto mas alto para poderlo hacer bajar
+	private boolean nosPodemosMover;
 
 	  public Pajaro(PApplet p, PImage i, int initX, int initY) {
 		super(p, i, initX, initY, p.random(10));
@@ -15,10 +16,20 @@ public class Pajaro extends DrawableMovable {
 	    maxY = 100;
 	    minY = 500;
 	    upEnd = false;
+	    nosPodemosMover = false;
 	  }
 
-	  // Move stripe
+	  public boolean isNosPodemosMover() {
+		return nosPodemosMover;
+	}
+
+	public void setNosPodemosMover(boolean nosPodemosMover) {
+		this.nosPodemosMover = nosPodemosMover;
+	}
+
+	// Move stripe
 	  public void move() {
+		  if(nosPodemosMover){
 		  if(upEnd) {
 			  y += speed;
 			  if(y > minY) {
@@ -39,7 +50,8 @@ public class Pajaro extends DrawableMovable {
 		  else {
 			  dissapears = true;
 		  }
-		  calculateCenter();
+		calculateCenter();
+		  }
 	  }
 
 	public void mataCerdo(Cerdo cerdo) {

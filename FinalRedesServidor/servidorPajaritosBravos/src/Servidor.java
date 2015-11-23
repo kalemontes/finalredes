@@ -92,7 +92,7 @@ public class Servidor extends Thread implements Observer {
 					
 				}
 				else if(accion.equalsIgnoreCase("DESMPOLLAR")) {
-					
+					applet.agregarAlLienzo(new PajaroRojo(applet, 10, 500));
 				}
 			}
 			else if(rolJugador.equalsIgnoreCase("CERDOKILLER")) {
@@ -105,8 +105,9 @@ public class Servidor extends Thread implements Observer {
 					applet.agregarAlLienzo(p1);
 				}
 				else if(accion.equalsIgnoreCase("LANZAR_ROJO")) {
-					PajaroRojo p1 = new PajaroRojo(applet, 10, 500);
-					applet.agregarAlLienzo(p1);
+					PajaroRojo baronRojo = new PajaroRojo(applet, 10, 500);
+					applet.agregarAlLienzo(baronRojo);
+					baronRojo.setNosPodemosMover(true);	
 				}
 			}
 			else if(rolJugador.equalsIgnoreCase("MONJA")) {

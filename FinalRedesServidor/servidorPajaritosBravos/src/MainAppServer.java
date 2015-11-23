@@ -1,3 +1,4 @@
+import java.awt.Container;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
@@ -17,9 +18,13 @@ public class MainAppServer extends PApplet{
 	ArrayList<Huevo> huevosEnElLienzo = new ArrayList<>();
 	ArrayList<Huevo> huevosARetirarDelLienzo = new ArrayList<>();
 	
+	ArrayList<Drawable> objetosFijos = new ArrayList<>();
+	
 	int largoLienzo = 1080;
 	int alturaLienzo = 720;
 	boolean juegoIniciado;
+
+	
 	
 	@Override
 	public void setup() {		
@@ -35,9 +40,11 @@ public class MainAppServer extends PApplet{
 		cerdo2 = loadImage("../data/cerdo2.png");
 		cerdo3 = loadImage("../data/cerdo3.png");
 		huevo = loadImage("../data/huevo.png");
+		cauchera = loadImage("../data/cauchera.png");
 		juegoIniciado = false;
 		
-		//--> esto es llamado cuando los 3 utilisadores estan conectados : iniciarJuego();
+		//--> esto es llamado cuando los 3 utilizadores estan conectados : 
+		iniciarJuego();
 	}
 	
 	@Override
@@ -46,7 +53,9 @@ public class MainAppServer extends PApplet{
 		
 		if(juegoIniciado) {
 			image(escenario,0,0);
-			
+			for(Drawable objetoFijo : objetosFijos){
+				objetoFijo.display();
+			}
 			for(Huevo huevo : huevosEnElLienzo) {
 				huevo.display();
 				if (huevo.mustDisapear()) {
@@ -105,9 +114,16 @@ public class MainAppServer extends PApplet{
 	public void agregarAlLienzo(Huevo objeto) {
 		huevosEnElLienzo.add(objeto);
 	}
+	private void agregarAlLienzo(Cauchera objeto) {
+		objetosFijos.add(objeto);
+	}
 	
 	public void iniciarJuego() {
 		juegoIniciado = true;
+		//PajaroRojo baronRojo = new PajaroRojo(this, 35, 410);
+		//baronRojo.setNosPodemosMover(true);
+		
+		agregarAlLienzo(new Cauchera(this, 25,310));
 		
 		//Agregamos los cerdos 
 		agregarAlLienzo(new CerdoConejo(this, 1000, 500));
@@ -119,9 +135,14 @@ public class MainAppServer extends PApplet{
 		agregarAlLienzo(new Huevo(this, 300, 500));
 		agregarAlLienzo(new Huevo(this, 360, 363));
 		
+		//agregarAlLienzo(baronRojo);
 		agregarAlLienzo(new PajaroRojo(this, 10, 500));
 		agregarAlLienzo(new PajaroAmarillo(this, 10, 500));
 		agregarAlLienzo(new PajaroAzul(this, 10, 500));
 //		agregarAlLienzo(new CerdoNormal(this, 720, 400));
+		
 	}
+
+	
+	
 }
