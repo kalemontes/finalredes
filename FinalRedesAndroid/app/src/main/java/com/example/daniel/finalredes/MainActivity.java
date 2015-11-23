@@ -63,17 +63,17 @@ public class MainActivity extends AppCompatActivity implements Observer {
         Log.i("MainActivity", respuestaServidor);
 
         switch (respuestaServidor) {
-            case "EMPOLLADOR":
+            case "ROL_JUGADOR:EMPOLLADOR":
                 Intent intentInstrucciones = new Intent(getApplicationContext(), InstruccionesActivity.class);
                 intentInstrucciones.putExtra("JUGADOR","ROL_JUGADOR:EMPOLLADOR");
                 startActivity(intentInstrucciones);
                 break;
-            case "MONJA":
+            case "ROL_JUGADOR:MONJA":
                 Intent intentInstrucciones2 = new Intent(getApplicationContext(), InstruccionesActivity.class);
                 intentInstrucciones2.putExtra("JUGADOR","ROL_JUGADOR:MONJA");
                 startActivity(intentInstrucciones2);
                 break;
-            case "CERDOKILLER":
+            case "ROL_JUGADOR:CERDOKILLER":
                 Intent intentInstrucciones3 = new Intent(getApplicationContext(), InstruccionesActivity.class);
                 intentInstrucciones3.putExtra("JUGADOR","ROL_JUGADOR:CERDOKILLER");
                 startActivity(intentInstrucciones3);
