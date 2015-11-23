@@ -11,34 +11,37 @@
         android:src="@drawable/interaccioncerdokiller"
         android:scaleType="centerCrop"/>
 
-    <ImageButton
-        android:id="@+id/botonazul"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@android:color/transparent"
-        android:src="@drawable/botonazul"
-        android:layout_marginTop="485dp"
-        android:layout_marginLeft="85dp"/>
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp">
 
-    <ImageButton
-        android:id="@+id/botonrojo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@android:color/transparent"
-        android:src="@drawable/botonrojo"
-        android:layout_marginTop="485dp"
-        android:layout_marginLeft="170dp"/>
+        <ImageButton
+            android:id="@+id/botonazul"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/botonazul" />
 
-    <ImageButton
-        android:id="@+id/botonamarillo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@android:color/transparent"
-        android:src="@drawable/botonamarillo"
-        android:layout_marginTop="485dp"
-        android:layout_marginLeft="255dp"/>
+        <ImageButton
+            android:id="@+id/botonrojo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/botonrojo" />
 
+        <ImageButton
+            android:id="@+id/botonamarillo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+
+            android:src="@drawable/botonamarillo" />
+
+    </LinearLayout>
 </RelativeLayout>
