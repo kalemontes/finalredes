@@ -11,4 +11,14 @@
         android:src="@drawable/interaccionempollar"
         android:scaleType="centerCrop"/>
 
+    <ImageButton
+        android:id="@+id/botonhuevo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"
+        android:src="@drawable/botonhuevo"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="90dp"/>
+
 </RelativeLayout>
