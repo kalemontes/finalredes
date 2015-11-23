@@ -2,3 +2,5 @@
 .metadata/
 FinalRedesServidor/servidorPajaritosBravos/bin/
 FinalRedesServidor/clientDeEnsayo/.settings/
+.idea/misc.xml
+.idea/workspace.xml
