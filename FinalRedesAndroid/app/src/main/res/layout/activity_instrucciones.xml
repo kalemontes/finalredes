@@ -21,18 +21,4 @@
         android:layout_marginBottom="30dp"
         android:text="OK"/>
 
-    <ImageView
-        android:id="@+id/imgInstrucciones2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/instruccion2" />
-
-    <ImageView
-        android:id="@+id/imgInstrucciones3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/instruccion3" />
-
 </RelativeLayout>
