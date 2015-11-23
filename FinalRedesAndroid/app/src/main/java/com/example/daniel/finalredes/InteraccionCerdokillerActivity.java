@@ -24,7 +24,19 @@ public class InteraccionCerdokillerActivity extends AppCompatActivity {
                 Comunicacion.getInstance().enviar("ACCION_JUGADOR:CERDOKILLER:LANZAR_ROJO");
             }
         });
-        botonAmarillo = (ImageButton) findView
-
+        botonAmarillo = (ImageButton) findViewById(R.id.botonamarillo);
+        botonAmarillo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Comunicacion.getInstance().enviar("ACCION_JUGADOR:CERDOKILLER:LANZAR_AMARILLO");
+            }
+        });
+        botonAzul = (ImageButton) findViewById(R.id.botonazul);
+        botonAzul.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Comunicacion.getInstance().enviar("ACCION_JUGADOR:CERDOKILLER:LANZAR_AZUL");
+            }
+        });
     }
 }
