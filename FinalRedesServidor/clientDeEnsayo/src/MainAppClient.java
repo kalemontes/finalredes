@@ -14,7 +14,7 @@ public class MainAppClient {
 		                break;
 		            case "conectado":
 		            	System.out.println("Conexión establecida");
-		            	Comunicacion.getInstance().enviar("CONEXION_JUGADOR:JUGADOR_1:");
+		            	Comunicacion.getInstance().enviar("CONEXION_JUGADOR:JUGADOR_1");
 		                break;
 		            default:
 		                break;
