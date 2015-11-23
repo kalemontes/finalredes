@@ -128,67 +128,9 @@ public class Comunicacion extends Observable implements Runnable {
         DataInputStream dis = new DataInputStream(s.getInputStream());
         String recibido = dis.readUTF();
 
-        jugadorConectado(recibido);
-        manejarLogin(recibido);
-        manejarSignup(recibido);
-        manejarMensaje(recibido);
-    }
-
-    private void jugadorConectado(String recibido) {
-        String[] instruccion_mensaje = recibido.split(":");
-        String instruccion = instruccion_mensaje[0];
-        if (instruccion.equalsIgnoreCase("ROL_JUGADOR")) {
-            String mensajeServidor = instruccion_mensaje[1];
-
-            setChanged();
-            notifyObservers(mensajeServidor);
-            clearChanged();
-        }
-    }
-
-    private void manejarMensaje(String recibido) {
-        if (recibido.contains("mensaje_send:")) {
-            setChanged();
-            notifyObservers(recibido);
-            clearChanged();
-        }
-    }
-
-    private void manejarSignup(String recibido) {
-        if (recibido.contains("signup_resp:")) {
-            String[] partes = recibido.split(":");
-            int resultado = Integer.parseInt(partes[1]);
-            setChanged();
-            switch (resultado) {
-                case 0:
-                    notifyObservers("usuario_existe");
-                    break;
-                case 1:
-                    notifyObservers("usuario_registrado");
-                    break;
-            }
-            clearChanged();
-        }
-    }
-
-    private void manejarLogin(String recibido) {
-        if (recibido.contains("login_resp:")) {
-            String[] partes = recibido.split(":");
-            int resultado = Integer.parseInt(partes[1]);
-            setChanged();
-            switch (resultado) {
-                case 0:
-                    notifyObservers("usuario_no_existe");
-                    break;
-                case 1:
-                    notifyObservers("login_ok");
-                    break;
-                case 2:
-                    notifyObservers("login_no_ok");
-                    break;
-            }
-            clearChanged();
-        }
+        setChanged();
+        notifyObservers(recibido);
+        clearChanged();
     }
 
     public void enviar(String msn) {
