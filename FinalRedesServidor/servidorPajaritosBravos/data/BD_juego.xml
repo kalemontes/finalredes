@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <juego>
 	<escenario>
-		<cauchera x="" y="">
-			<pajaros color="azul">3</pajaros>
-			<pajaros color="rojo">3</pajaros>
-			<pajaros color="amarillo">3</pajaros>
+		<cauchera xPalo="25" yPalo="310" xLanzar="30" yLanzar="420">
+			<pajaros color="azul">0</pajaros>
+			<pajaros color="rojo">1</pajaros>
+			<pajaros color="amarillo">0</pajaros>
 		</cauchera>
-		<nido x="10" y="350">
+		<nido x="85" y="590">
 			<huevos>3</huevos>
 		</nido>
 	</escenario>

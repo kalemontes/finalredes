@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import sun.awt.geom.AreaOp.AddOp;
-
 public class Servidor extends Thread implements Observer {
 
 	private MainAppServer applet;
@@ -79,7 +77,7 @@ public class Servidor extends Thread implements Observer {
 			
 			if(clientes.size() >= 3) { //FIXME deberiamos guardar refencia de que cada typo de jugar realmente se conecto
 				//TODO: presentar el escenario en la pantalla del televisor
-				applet.iniciarJuego();
+				applet.iniciarJuego(estadoJuego);
 				for(ControlCliente cliente : clientes) {
 					cliente.enviarMensaje("INICIO_AUTORIZADO:LISTO_PAPA!!");
 				}
@@ -101,17 +99,17 @@ public class Servidor extends Thread implements Observer {
 					case 0:						
 						break;
 					case 1:
-						PajaroRojo pajaroRojoLanzar = new PajaroRojo(applet, 30, 500);
+						PajaroRojo pajaroRojoLanzar = new PajaroRojo(applet, estadoJuego.getxLanzar(), estadoJuego.getyLanzar());
 						applet.agregarALaCaucheraRoja(pajaroRojoLanzar);
 						applet.huevosEnElNido.remove(0);
 						break;
 					case 2:
-						PajaroAzul pajaroAzulLanzar = new PajaroAzul(applet, 30, 500);
+						PajaroAzul pajaroAzulLanzar = new PajaroAzul(applet, estadoJuego.getxLanzar(), estadoJuego.getyLanzar());
 						applet.agregarALaCaucheraAzul(pajaroAzulLanzar);
 						applet.huevosEnElNido.remove(0);
 						break;
 					case 3:
-					PajaroAmarillo pajaroAmarilloLanzar = new PajaroAmarillo(applet, 30, 500);
+					PajaroAmarillo pajaroAmarilloLanzar = new PajaroAmarillo(applet, estadoJuego.getxLanzar(), estadoJuego.getyLanzar());
 					applet.agregarALaCaucheraAmarilla(pajaroAmarilloLanzar);
 					applet.huevosEnElNido.remove(0);
 						break;
@@ -164,6 +162,10 @@ public class Servidor extends Thread implements Observer {
 			}
 			
 			if(accion.equalsIgnoreCase("GUARDAR_JUEGO")) {
+				estadoJuego.setAmarillos(applet.pajaroAmarilloListo.size());
+				estadoJuego.setRojos(applet.pajaroRojoListo.size());
+				estadoJuego.setAzules(applet.pajaroAzulListo.size());
+				estadoJuego.setHuevosNido(applet.huevosEnElNido.size());
 				estadoJuego.guardar();
 			}
 			else if(accion.equalsIgnoreCase("RECARGAR_JUEGO")) {

@@ -54,7 +54,7 @@ public class MainAppServer extends PApplet{
 		juegoIniciado = false;
 		
 		//--> esto es llamado cuando los 3 utilizadores estan conectados : 
-		iniciarJuego();
+		iniciarJuego(server.getEstadoJuego());
 	}
 	
 	@Override
@@ -151,15 +151,13 @@ public class MainAppServer extends PApplet{
 		objetosFijos.add(objeto);
 	}
 	
-	public void iniciarJuego() {
+	public void iniciarJuego(EstadoJuego estadoJuego) {
 		juegoIniciado = true;
-		//PajaroRojo baronRojo = new PajaroRojo(this, 35, 410);
-		//baronRojo.setNosPodemosMover(true);
 		
-		this.baronNegro = new PajaroNegro(this, 85, 590);
+		agregarAlLienzo(new Cauchera(this, estadoJuego.getxCauchera(), estadoJuego.getyCauchera()));
+		
+		this.baronNegro = new PajaroNegro(this, estadoJuego.getxNido(), estadoJuego.getyNido());
 		this.agregarAlLienzo(baronNegro);
-		
-		agregarAlLienzo(new Cauchera(this, 25,310));
 		
 		//Agregamos los cerdos 
 		agregarAlLienzo(new CerdoConejo(this, 1000, 500));
@@ -170,7 +168,25 @@ public class MainAppServer extends PApplet{
 		agregarAlLienzo(new Huevo(this, 100, 500));
 		agregarAlLienzo(new Huevo(this, 300, 500));
 		agregarAlLienzo(new Huevo(this, 360, 363));
-	
+		
+		for(int i = 0; i < estadoJuego.getHuevosNido(); i++) {
+			this.baronNegro.rescatarHuevo(new Huevo(this, estadoJuego.getxNido(), estadoJuego.getyNido()));
+		}
+		
+		for(int i = 0; i < estadoJuego.getAzules(); i++) {
+			pajaroAzulListo.add(new PajaroAzul(this, estadoJuego.getxLanzar(), estadoJuego.getyLanzar()));
+		}
+		
+		for(int i = 0; i < estadoJuego.getAmarillos(); i++) {
+			pajaroAmarilloListo.add(new PajaroAmarillo(this, estadoJuego.getxLanzar(), estadoJuego.getyLanzar()));
+		}
+		
+		for(int i = 0; i < estadoJuego.getRojos(); i++) {
+			pajaroRojoListo.add(new PajaroRojo(this, estadoJuego.getxLanzar(), estadoJuego.getyLanzar()));
+		}
+		
+		//PajaroRojo baronRojo = new PajaroRojo(this, 35, 410);
+		//baronRojo.setNosPodemosMover(true);
 		
 		//agregarAlLienzo(baronRojo);
 //		agregarAlLienzo(new PajaroRojo(this, 10, 500));

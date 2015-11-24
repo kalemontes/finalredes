@@ -7,15 +7,17 @@ public class EstadoJuego {
 	
 	////////////////////// datos del juego //////////////////
 	
-	int xNido;
-	int yNido;
-	int huevosNido;
+	private int xNido;
+	private int yNido;
+	private int huevosNido;
 	
-	int xCauchera;
-	int yCauchera;
-	int azules;
-	int rojos;
-	int amarillos;
+	private int xCauchera;
+	private int yCauchera;
+	private int azules;
+	private int rojos;
+	private int amarillos;
+	private int xLanzar;
+	private int yLanzar;
 	
 	//////////////////////datos del juego //////////////////
 	
@@ -31,8 +33,8 @@ public class EstadoJuego {
 	
 	public void guardar() {
 		XML escenario = xmlDatosJuego.getChild("escenario");
-		guardarNido(escenario, xNido, yNido, huevosNido);
-		guardarCauchera(escenario, xCauchera, yCauchera, rojos, azules, amarillos);
+		guardarNido(escenario.getChild("nido"), xNido, yNido, huevosNido);
+		guardarCauchera(escenario.getChild("cauchera"), xCauchera, yCauchera, rojos, azules, amarillos);
 		applet.saveXML(xmlDatosJuego, "../data/BD_juego.xml");
 	}
 	
@@ -44,8 +46,10 @@ public class EstadoJuego {
 	}
 	
 	private void guardarCauchera(XML parent, int x, int y, int rojos, int azules, int amarillos) {
-		parent.setInt("x", x);
-		parent.setInt("y", y);
+		parent.setInt("xPalo", x);
+		parent.setInt("yPalo", y);
+		parent.setInt("xLanzar", x);
+		parent.setInt("yLanzar", y);
 		for (XML pajaros : parent.getChildren("pajaros")) {
 			if(pajaros.getString("color").equalsIgnoreCase("rojo")) {
 				pajaros.setIntContent(rojos);
@@ -62,14 +66,15 @@ public class EstadoJuego {
 	public void chargar() {
 		xmlDatosJuego = applet.loadXML("../data/BD_juego.xml");
 		XML escenario = xmlDatosJuego.getChild("escenario");
-		chargarCauchera(escenario);
-		chargarNido(escenario);
+		chargarCauchera(escenario.getChild("cauchera"));
+		chargarNido(escenario.getChild("nido"));
 	}
 	
 	private void chargarCauchera(XML parent) {
-		xCauchera = parent.getInt("x");
-		yCauchera = parent.getInt("y");
-		
+		xCauchera = parent.getInt("xPalo");
+		yCauchera = parent.getInt("yPalo");
+		xLanzar = parent.getInt("xLanzar");
+		yLanzar = parent.getInt("yLanzar");
 		for (XML pajaros : parent.getChildren("pajaros")) {
 			if(pajaros.getString("color").equalsIgnoreCase("rojo")) {
 				rojos = pajaros.getIntContent();
@@ -127,6 +132,22 @@ public class EstadoJuego {
 
 	public void setyCauchera(int yCauchera) {
 		this.yCauchera = yCauchera;
+	}
+
+	public int getxLanzar() {
+		return xLanzar;
+	}
+
+	public void setxLanzar(int xLanzar) {
+		this.xLanzar = xLanzar;
+	}
+
+	public int getyLanzar() {
+		return yLanzar;
+	}
+
+	public void setyLanzar(int yLanzar) {
+		this.yLanzar = yLanzar;
 	}
 
 	public int getAzules() {
