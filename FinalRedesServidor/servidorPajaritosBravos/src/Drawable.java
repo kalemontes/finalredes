@@ -3,13 +3,13 @@ import processing.core.PImage;
 
 public abstract class Drawable {
 	
-	float xCenter;
-	float yCenter;
+	int xCenter;
+	int yCenter;
 	int width;
 	int height;
 	
-	float x; // posicion horizontal
-	float y; // posicion vertical
+	int x; // posicion horizontal
+	int y; // posicion vertical
 	PApplet parent; // The parent PApplet that we will render ourselves onto
 	PImage img;
 	

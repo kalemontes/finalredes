@@ -17,6 +17,7 @@ import java.util.Observer;
 public class MainActivity extends AppCompatActivity implements Observer {
     private ImageButton bnPlay,bnPlay2,bnPlay3;
     private ImageButton salir;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +26,10 @@ public class MainActivity extends AppCompatActivity implements Observer {
         Comunicacion.getInstance().addObserver(this);
 
         // cancion de fondo en splash screen
-        MediaPlayer mediaPlayer;
+
         mediaPlayer = MediaPlayer.create(this,R.raw.angrybirds);
         mediaPlayer.setLooping(true);
         mediaPlayer.setVolume(70,70);
-        mediaPlayer.start();
 
         bnPlay = (ImageButton) findViewById(R.id.bnPlay);
         bnPlay.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +66,25 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mediaPlayer.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mediaPlayer.pause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mediaPlayer.stop();
+        mediaPlayer.release();
     }
 
     @Override

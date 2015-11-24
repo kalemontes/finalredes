@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import sun.awt.geom.AreaOp.AddOp;
+
 public class Servidor extends Thread implements Observer {
 
 	private MainAppServer applet;
 	private ServerSocket ss;
 	private ArrayList<ControlCliente> clientes;
 	private EstadoJuego estadoJuego;
+	
 
 	public Servidor(MainAppServer app) {
 		applet = app;
@@ -92,32 +95,69 @@ public class Servidor extends Thread implements Observer {
 					
 				}
 				else if(accion.equalsIgnoreCase("DESMPOLLAR")) {
-					applet.agregarAlLienzo(new PajaroRojo(applet, 10, 500));
+					if(applet.huevosEnElNido.size()>0){
+					int random = (int) applet.random(0,4);
+					switch (random){
+					case 0:						
+						break;
+					case 1:
+						PajaroRojo pajaroRojoLanzar = new PajaroRojo(applet, 30, 500);
+						applet.agregarALaCaucheraRoja(pajaroRojoLanzar);
+						applet.huevosEnElNido.remove(0);
+						break;
+					case 2:
+						PajaroAzul pajaroAzulLanzar = new PajaroAzul(applet, 30, 500);
+						applet.agregarALaCaucheraAzul(pajaroAzulLanzar);
+						applet.huevosEnElNido.remove(0);
+						break;
+					case 3:
+					PajaroAmarillo pajaroAmarilloLanzar = new PajaroAmarillo(applet, 30, 500);
+					applet.agregarALaCaucheraAmarilla(pajaroAmarilloLanzar);
+					applet.huevosEnElNido.remove(0);
+						break;
+					case 4:
+						break;
+						}
+					}
 				}
 			}
 			else if(rolJugador.equalsIgnoreCase("CERDOKILLER")) {
+				
+			}
 				if(accion.equalsIgnoreCase("LANZAR_AZUL")) {
-					PajaroAzul p1 = new PajaroAzul(applet, 10, 350);
-					applet.agregarAlLienzo(p1);
-					p1.setNosPodemosMover(true);
+					if(applet.pajaroAzulListo.size()>0){
+						PajaroAzul pa= applet.pajaroAzulListo.get(0);
+						pa.setNosPodemosMover(true);
+						applet.pajarosEnElLienzo.add(pa);
+						applet.pajaroAzulListo.remove(pa);
+					}
 				}
 				else if(accion.equalsIgnoreCase("LANZAR_AMARILLO")) {
-					PajaroAmarillo p1 = new PajaroAmarillo(applet, 10, 350);
-					applet.agregarAlLienzo(p1);
-					p1.setNosPodemosMover(true);
+					if(applet.pajaroAmarilloListo.size()>0){
+						PajaroAmarillo pama= applet.pajaroAmarilloListo.get(0);
+						pama.setNosPodemosMover(true);
+						applet.pajarosEnElLienzo.add(pama);
+						applet.pajaroAmarilloListo.remove(pama);
+					}
 				}
 				else if(accion.equalsIgnoreCase("LANZAR_ROJO")) {
-					PajaroRojo baronRojo = new PajaroRojo(applet, 10, 350);
-					applet.agregarAlLienzo(baronRojo);
-					baronRojo.setNosPodemosMover(true);	
+					if(applet.pajaroRojoListo.size()>0){
+						PajaroRojo pr= applet.pajaroRojoListo.get(0);
+						pr.setNosPodemosMover(true);
+						applet.pajarosEnElLienzo.add(pr);
+						applet.pajaroAmarilloListo.remove(pr);	
 				}
 			}
 			else if(rolJugador.equalsIgnoreCase("MONJA")) {
 				if(accion.equalsIgnoreCase("RESCATAR")) {
 					if(applet.huevosEnElLienzo.size() > 0) {
+						Huevo huevoRescatado = applet.huevosEnElLienzo.get(0);
+						applet.baronNegro.rescatarHuevo(huevoRescatado);
 						((ControlCliente)observado).enviarMensaje("ACCION_MONJA:HUEVO_RESCATADO");
+			
 					}
 					else {
+						applet.baronNegro.volverAlNido();
 						((ControlCliente)observado).enviarMensaje("ACCION_MONJA:HUEVO_PERDIDO");
 					}
 				}
