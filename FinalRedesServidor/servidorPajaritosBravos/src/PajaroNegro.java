@@ -23,7 +23,7 @@ public class PajaroNegro extends Pajaro {
 		y= huevo.y;
 		calculateCenter();
 		huevo.setMustDisapear(true);
-		Huevo huevoNuevo = new Huevo((MainAppServer) parent, xNido, yNido);
+		Huevo huevoNuevo = new Huevo((MainAppServer) parent, xNido + 30, yNido);
 		((MainAppServer) parent).huevosEnElNido.add(huevoNuevo);
 	}
 }
