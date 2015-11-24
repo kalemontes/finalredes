@@ -114,9 +114,12 @@ public class Servidor extends Thread implements Observer {
 			}
 			else if(rolJugador.equalsIgnoreCase("MONJA")) {
 				if(accion.equalsIgnoreCase("RESCATAR")) {
-					
-					//if
-					((ControlCliente)observado).enviarMensaje("ACCION_MONJA:HUEVO_RESCATADO");
+					if(applet.huevosEnElLienzo.size() > 0) {
+						((ControlCliente)observado).enviarMensaje("ACCION_MONJA:HUEVO_RESCATADO");
+					}
+					else {
+						((ControlCliente)observado).enviarMensaje("ACCION_MONJA:HUEVO_PERDIDO");
+					}
 				}
 			}
 			
