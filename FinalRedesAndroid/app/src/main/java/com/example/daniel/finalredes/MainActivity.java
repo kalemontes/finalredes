@@ -1,6 +1,7 @@
 package com.example.daniel.finalredes;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,6 +23,13 @@ public class MainActivity extends AppCompatActivity implements Observer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Comunicacion.getInstance().addObserver(this);
+
+        // cancion de fondo en splash screen
+        MediaPlayer mediaPlayer;
+        mediaPlayer = MediaPlayer.create(this,R.raw.angrybirds);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.setVolume(70,70);
+        mediaPlayer.start();
 
         bnPlay = (ImageButton) findViewById(R.id.bnPlay);
         bnPlay.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +63,9 @@ public class MainActivity extends AppCompatActivity implements Observer {
                 finish();
             }
         });
+
+
+
     }
 
     @Override
