@@ -1,29 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <juego>
 	<escenario>
-		<huevos color="rojo">1</huevos>
-		<huevos color="azul">0</huevos>
-		<huevos color="amarillo">2</huevos>
+		<cauchera x="" y="">
+			<pajaros color="azul">3</pajaros>
+			<pajaros color="rojo">3</pajaros>
+			<pajaros color="amarillo">3</pajaros>
+		</cauchera>
+		<nido x="10" y="350">
+			<huevos>3</huevos>
+		</nido>
 	</escenario>
-	<jugadores>
-		<jugador rol="empollador">
-			<puntos>0</puntos>
-			<huevos color="rojo">0</huevos>
-			<huevos color="azul">1</huevos>
-			<huevos color="amarillo">1</huevos>
-			<pajaros color="rojo">0</pajaros>
-			<pajaros color="azul">0</pajaros>
-			<pajaros color="amarillo">0</pajaros>
-		</jugador>
-		<jugador rol="cerdokiller">
-			<puntos>0</puntos>
-			<pajaros color="rojo">1</pajaros>
-			<pajaros color="azul">0</pajaros>
-			<pajaros color="amarillo">0</pajaros>
-		</jugador>
-		<jugador rol="monja">
-			<puntos>0</puntos>
-			<estado>cansada</estado>
-		</jugador>
-	</jugadores>
 </juego>

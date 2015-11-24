@@ -7,25 +7,15 @@ public class EstadoJuego {
 	
 	////////////////////// datos del juego //////////////////
 	
-	int huevosRojosEnElEscenario;
-	int huevosAzulesEnElEscenario;
-	int huevosAmarillosEnElEscenario;
+	int xNido;
+	int yNido;
+	int huevosNido;
 	
-	int puntajeEmpollador;
-	int huevosRojosEmpollador;
-	int huevosAzulesEmpollador;
-	int huevosAmarillosEmpollador;
-	int pajarosRojosEmpollador;
-	int pajarosAzulesEmpollador;
-	int pajarosAmarillosEmpollador;
-	
-	int puntajeCerdoKiller;
-	int pajarosRojosCerdoKiller;
-	int pajarosAzulesCerdoKiller;
-	int pajarosAmarillosCerdoKiller;
-	
-	int puntajeMonja;
-	String estadoMonja;
+	int xCauchera;
+	int yCauchera;
+	int azules;
+	int rojos;
+	int amarillos;
 	
 	//////////////////////datos del juego //////////////////
 	
@@ -41,42 +31,21 @@ public class EstadoJuego {
 	
 	public void guardar() {
 		XML escenario = xmlDatosJuego.getChild("escenario");
-		guardarHuevos(escenario, huevosRojosEnElEscenario, huevosAzulesEnElEscenario, huevosAmarillosEnElEscenario);
-		
-		XML jugadores = xmlDatosJuego.getChild("jugadores");
-		for (XML jugador : jugadores.getChildren("jugador")) {
-			if(jugador.getString("rol").equalsIgnoreCase("empollador")) {
-				jugador.getChild("puntos").setIntContent(puntajeEmpollador);
-				guardarHuevos(jugador, huevosRojosEmpollador, huevosAzulesEmpollador, huevosAmarillosEmpollador);
-				guardarPajaros(jugador, pajarosRojosEmpollador, pajarosAzulesEmpollador, pajarosAmarillosEmpollador);
-			}
-			else if(jugador.getString("rol").equalsIgnoreCase("cerdokiller")) {
-				jugador.getChild("puntos").setIntContent(puntajeCerdoKiller);
-				guardarPajaros(jugador, pajarosRojosCerdoKiller, pajarosAzulesCerdoKiller, pajarosAmarillosCerdoKiller);
-			}
-			else if(jugador.getString("rol").equalsIgnoreCase("monja")) {
-				jugador.getChild("puntos").setIntContent(puntajeMonja);
-				jugador.getChild("estado").setContent(estadoMonja);
-			}
-		}
+		guardarNido(escenario, xNido, yNido, huevosNido);
+		guardarCauchera(escenario, xCauchera, yCauchera, rojos, azules, amarillos);
 		applet.saveXML(xmlDatosJuego, "../data/BD_juego.xml");
 	}
 	
-	private void guardarHuevos(XML parent, int rojos, int azules, int amarillos) {
-		for (XML huevos : parent.getChildren("huevos")) {
-			if(huevos.getString("color").equalsIgnoreCase("rojo")) {
-				huevos.setIntContent(rojos);
-			}
-			else if(huevos.getString("color").equalsIgnoreCase("azul")) {
-				huevos.setIntContent(azules);
-			}
-			else if(huevos.getString("color").equalsIgnoreCase("amarillo")) {
-				huevos.setIntContent(amarillos);
-			}
-		}
+	private void guardarNido(XML parent, int x, int y, int huevos) {
+		parent.setInt("x", x);
+		parent.setInt("y", y);
+		XML child = parent.getChild("huevos");
+		child.setIntContent(huevos);
 	}
 	
-	private void guardarPajaros(XML parent, int rojos, int azules, int amarillos) {
+	private void guardarCauchera(XML parent, int x, int y, int rojos, int azules, int amarillos) {
+		parent.setInt("x", x);
+		parent.setInt("y", y);
 		for (XML pajaros : parent.getChildren("pajaros")) {
 			if(pajaros.getString("color").equalsIgnoreCase("rojo")) {
 				pajaros.setIntContent(rojos);
@@ -92,156 +61,95 @@ public class EstadoJuego {
 	
 	public void chargar() {
 		xmlDatosJuego = applet.loadXML("../data/BD_juego.xml");
-		
 		XML escenario = xmlDatosJuego.getChild("escenario");
-		huevosRojosEnElEscenario = chargarHuevos(escenario, "rojo");
-		huevosAmarillosEnElEscenario = chargarHuevos(escenario, "azul");
-		huevosAzulesEnElEscenario = chargarHuevos(escenario, "amarillo");
+		chargarCauchera(escenario);
+		chargarNido(escenario);
+	}
+	
+	private void chargarCauchera(XML parent) {
+		xCauchera = parent.getInt("x");
+		yCauchera = parent.getInt("y");
 		
-		XML jugadores = xmlDatosJuego.getChild("jugadores");
-		for (XML jugador : jugadores.getChildren("jugador")) {
-			if(jugador.getString("rol").equalsIgnoreCase("empollador")) {
-				puntajeEmpollador = jugador.getChild("puntos").getIntContent();
-				huevosRojosEmpollador = chargarHuevos(jugador, "rojo");
-				huevosAzulesEmpollador = chargarHuevos(jugador, "azul");
-				huevosAmarillosEmpollador = chargarHuevos(jugador, "amarillo");
-				pajarosRojosEmpollador = chargarPajaros(jugador, "rojo");
-				pajarosAzulesEmpollador = chargarPajaros(jugador, "azul");
-				pajarosAmarillosEmpollador = chargarPajaros(jugador, "amarillo");
+		for (XML pajaros : parent.getChildren("pajaros")) {
+			if(pajaros.getString("color").equalsIgnoreCase("rojo")) {
+				rojos = pajaros.getIntContent();
 			}
-			else if(jugador.getString("rol").equalsIgnoreCase("cerdokiller")) {
-				puntajeCerdoKiller = jugador.getChild("puntos").getIntContent();
-				pajarosRojosCerdoKiller = chargarPajaros(jugador, "rojo");
-				pajarosAzulesCerdoKiller = chargarPajaros(jugador, "azul");
-				pajarosAmarillosCerdoKiller = chargarPajaros(jugador, "amarillo");
+			else if(pajaros.getString("color").equalsIgnoreCase("azul")) {
+				azules = pajaros.getIntContent();
 			}
-			else if(jugador.getString("rol").equalsIgnoreCase("monja")) {
-				puntajeMonja = jugador.getChild("puntos").getIntContent();
-				estadoMonja = jugador.getChild("estado").getContent();
+			else if(pajaros.getString("color").equalsIgnoreCase("amarillo")) {
+				amarillos = pajaros.getIntContent();
 			}
 		}
-
 	}
 	
-	private int chargarPajaros(XML parent, String color) {
-		for (XML huevos : parent.getChildren("pajaros")) {
-			if(huevos.getString("color").equalsIgnoreCase(color)) {
-				return huevos.getIntContent();
-			}
-		}
-		return 0;
-	}
-	
-	private int chargarHuevos(XML parent, String color) {
-		for (XML huevos : parent.getChildren("huevos")) {
-			if(huevos.getString("color").equalsIgnoreCase(color)) {
-				return huevos.getIntContent();
-			}
-		}
-		return 0;
+	private void chargarNido(XML parent) {
+		xNido = parent.getInt("x");
+		yNido = parent.getInt("y");
+		huevosNido = parent.getChild("huevos").getIntContent();
 	}
 
-	public int getPuntajeEmpollador() {
-		return puntajeEmpollador;
+	public int getxNido() {
+		return xNido;
 	}
 
-	public void setPuntajeEmpollador(int puntajeEmpollador) {
-		this.puntajeEmpollador = puntajeEmpollador;
+	public void setxNido(int xNido) {
+		this.xNido = xNido;
 	}
 
-	public int getHuevosRojosEmpollador() {
-		return huevosRojosEmpollador;
+	public int getyNido() {
+		return yNido;
 	}
 
-	public void setHuevosRojosEmpollador(int huevosRojosEmpollador) {
-		this.huevosRojosEmpollador = huevosRojosEmpollador;
+	public void setyNido(int yNido) {
+		this.yNido = yNido;
 	}
 
-	public int getHuevosAzulesEmpollador() {
-		return huevosAzulesEmpollador;
+	public int getHuevosNido() {
+		return huevosNido;
 	}
 
-	public void setHuevosAzulesEmpollador(int huevosAzulesEmpollador) {
-		this.huevosAzulesEmpollador = huevosAzulesEmpollador;
+	public void setHuevosNido(int huevosNido) {
+		this.huevosNido = huevosNido;
 	}
 
-	public int getHuevosAmarillosEmpollador() {
-		return huevosAmarillosEmpollador;
+	public int getxCauchera() {
+		return xCauchera;
 	}
 
-	public void setHuevosAmarillosEmpollador(int huevosAmarillosEmpollador) {
-		this.huevosAmarillosEmpollador = huevosAmarillosEmpollador;
+	public void setxCauchera(int xCauchera) {
+		this.xCauchera = xCauchera;
 	}
 
-	public int getPajarosRojosEmpollador() {
-		return pajarosRojosEmpollador;
+	public int getyCauchera() {
+		return yCauchera;
 	}
 
-	public void setPajarosRojosEmpollador(int pajarosRojosEmpollador) {
-		this.pajarosRojosEmpollador = pajarosRojosEmpollador;
+	public void setyCauchera(int yCauchera) {
+		this.yCauchera = yCauchera;
 	}
 
-	public int getPajarosAzulesEmpollador() {
-		return pajarosAzulesEmpollador;
+	public int getAzules() {
+		return azules;
 	}
 
-	public void setPajarosAzulesEmpollador(int pajarosAzulesEmpollador) {
-		this.pajarosAzulesEmpollador = pajarosAzulesEmpollador;
+	public void setAzules(int azules) {
+		this.azules = azules;
 	}
 
-	public int getPajarosAmarillosEmpollador() {
-		return pajarosAmarillosEmpollador;
+	public int getRojos() {
+		return rojos;
 	}
 
-	public void setPajarosAmarillosEmpollador(int pajarosAmarillosEmpollador) {
-		this.pajarosAmarillosEmpollador = pajarosAmarillosEmpollador;
+	public void setRojos(int rojos) {
+		this.rojos = rojos;
 	}
 
-	public int getPuntajeCerdoKiller() {
-		return puntajeCerdoKiller;
+	public int getAmarillos() {
+		return amarillos;
 	}
 
-	public void setPuntajeCerdoKiller(int puntajeCerdoKiller) {
-		this.puntajeCerdoKiller = puntajeCerdoKiller;
-	}
-
-	public int getPajarosRojosCerdoKiller() {
-		return pajarosRojosCerdoKiller;
-	}
-
-	public void setPajarosRojosCerdoKiller(int pajarosRojosCerdoKiller) {
-		this.pajarosRojosCerdoKiller = pajarosRojosCerdoKiller;
-	}
-
-	public int getPajarosAzulesCerdoKiller() {
-		return pajarosAzulesCerdoKiller;
-	}
-
-	public void setPajarosAzulesCerdoKiller(int pajarosAzulesCerdoKiller) {
-		this.pajarosAzulesCerdoKiller = pajarosAzulesCerdoKiller;
-	}
-
-	public int getPajarosAmarillosCerdoKiller() {
-		return pajarosAmarillosCerdoKiller;
-	}
-
-	public void setPajarosAmarillosCerdoKiller(int pajarosAmarillosCerdoKiller) {
-		this.pajarosAmarillosCerdoKiller = pajarosAmarillosCerdoKiller;
-	}
-
-	public int getPuntajeMonja() {
-		return puntajeMonja;
-	}
-
-	public void setPuntajeMonja(int puntajeMonja) {
-		this.puntajeMonja = puntajeMonja;
-	}
-
-	public String getEstadoMonja() {
-		return estadoMonja;
-	}
-
-	public void setEstadoMonja(String estadoMonja) {
-		this.estadoMonja = estadoMonja;
+	public void setAmarillos(int amarillos) {
+		this.amarillos = amarillos;
 	}
 }
